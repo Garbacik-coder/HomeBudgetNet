@@ -13,6 +13,11 @@
         private DateTime date;
         private Spending spending;
 
+        public Spending()
+        {
+                
+        }
+
         public Spending(int id, string name, decimal value, string category, DateTime date)
         {
             this.id = id;
@@ -37,7 +42,7 @@
             this.id = id;
         }
 
-        public String getName()
+        public string getName()
         {
             return name;
         }

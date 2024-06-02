@@ -67,16 +67,14 @@ public class MySqlSpendingStore : ISpendingStore
 
 
 
-    public async Task<IEnumerable<Domain.Spending>> GetAll()
+    public async Task<IEnumerable<Spending>> GetAll()
     {
         await using var connection = new MySqlConnection(connectionString);
-        return (IEnumerable<Domain.Spending>)await connection.QueryAsync<Spending>(
-            sqlHelper.GetSqlFromEmbeddedResource("GetAll"),
-            commandType: CommandType.Text
-            );
+        var sql = sqlHelper.GetSqlFromEmbeddedResource("GetAll");
+        return await connection.QueryAsync<Spending>(sql, commandType: CommandType.Text);
     }
 
-    public async Task<Spending?> GetById(Guid id)
+    public async Task<Spending?> GetById(int id)
     {
         await using var connection = new MySqlConnection(connectionString);
         return await connection.QueryFirstOrDefaultAsync<Spending?>(
@@ -85,8 +83,8 @@ public class MySqlSpendingStore : ISpendingStore
             commandType: CommandType.Text
             );
     }
-
-    async Task<Domain.Spending?> ISpendingStore.GetById(Guid id)
+        
+    async Task<Domain.Spending?> ISpendingStore.GetById(int id)
     {
         await using var connection = new MySqlConnection(connectionString);
         return await connection.QueryFirstOrDefaultAsync<Spending?>(

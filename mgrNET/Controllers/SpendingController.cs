@@ -24,20 +24,24 @@ namespace mgrNET.Controllers
         public async Task<IActionResult> Get()
         {
             var storeSpendings = await spendingStore.GetAll();
-            var spendings = storeSpendings.Select(x => new Domain.Spending(x));
-            return Ok(spendings);
+            return Ok(storeSpendings);
         }
 
         // GET api/movies/5
         [HttpGet("{id}")]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get(Guid id)
+        //[Produces("application/json")]
+        //[ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<SpendingDto>> Get(int id)
         {
             var spending = await spendingStore.GetById(id);
+            var dto = new SpendingDto { Id = spending.getId() };
+            return Ok(dto);
+        }
 
-            return Ok(new Domain.Spending(spending));
+        public record SpendingDto
+        {
+            public int Id { get; set; }
         }
 
         // POST api/movies
