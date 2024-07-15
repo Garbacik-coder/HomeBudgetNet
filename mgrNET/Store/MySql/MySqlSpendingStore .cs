@@ -25,7 +25,7 @@ public class MySqlSpendingStore : ISpendingStore
     }
     public async Task Create(CreateSpendingParams createSpendingParams)
     {
-        await using var connection = new MySqlConnection(connectionString);
+        await using var connection = new MySqlConnection(this.connectionString);
         {
             var parameters = new
             {
@@ -39,7 +39,7 @@ public class MySqlSpendingStore : ISpendingStore
             try
             {
                 await connection.ExecuteAsync(
-                    sqlHelper.GetSqlFromEmbeddedResource("Create"),
+                    this.sqlHelper.GetSqlFromEmbeddedResource("Create"),
                     parameters,
                     commandType: CommandType.Text);
             }

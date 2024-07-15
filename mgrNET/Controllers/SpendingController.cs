@@ -27,7 +27,7 @@ namespace mgrNET.Controllers
             return Ok(storeSpendings);
         }
 
-        // GET api/movies/5
+        /*// GET api/movies/5
         [HttpGet("{id}")]
         //[Produces("application/json")]
         //[ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status200OK)]
@@ -37,16 +37,32 @@ namespace mgrNET.Controllers
             var spending = await spendingStore.GetById(id);
             var dto = new SpendingDto { Id = spending.getId() };
             return Ok(dto);
+        }*/
+
+        [HttpGet("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get(int id)
+        {
+            var movie = await spendingStore.GetById(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new Domain.Spending(movie));
         }
 
         public record SpendingDto
         {
             public int Id { get; set; }
         }
-
+        
         // POST api/movies
         [HttpPost]
-        [Consumes(typeof(CreateSpending), "application/json")]
+//        [Consumes(typeof(CreateSpending), "application/json")]
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Post([FromBody] CreateSpending request)
@@ -59,6 +75,7 @@ namespace mgrNET.Controllers
                     request.value,
                     request.category,
                     request.date
+
                     ));
             }
             catch (DuplicateKeyException)

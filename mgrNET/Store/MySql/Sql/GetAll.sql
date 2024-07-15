@@ -4,4 +4,4 @@ SELECT
     value,
     category,
     date
-FROM Spending
+FROM Spending;
