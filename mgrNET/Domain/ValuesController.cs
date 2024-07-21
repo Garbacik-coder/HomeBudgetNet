@@ -2,84 +2,30 @@
 {
     public class Spending
     {
-        private int id;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Value { get; set; }
+        public string Category { get; set; }
+        public DateTime Date { get; set; }
 
-        private string name;
-
-        private decimal value;
-
-        private string category;
-
-        private DateTime date;
-        private Spending spending;
-
-        public Spending()
-        {
-                
-        }
+        public Spending() { }
 
         public Spending(int id, string name, decimal value, string category, DateTime date)
         {
-            this.id = id;
-            this.name = name;
-            this.value = value;
-            this.category = category;
-            this.date = date;
+            this.Id = id;
+            this.Name = name;
+            this.Value = value;
+            this.Category = category;
+            this.Date = date;
         }
 
         public Spending(Spending spending)
         {
-            this.spending = spending;
-        }
-
-        public int getId()
-        {
-            return id;
-        }
-
-        public void setId(int id)
-        {
-            this.id = id;
-        }
-
-        public string getName()
-        {
-            return name;
-        }
-
-        public void setName(String name)
-        {
-            this.name = name;
-        }
-
-        public decimal getValue()
-        {
-            return value;
-        }
-
-        public void setValue(decimal value)
-        {
-            this.value = value;
-        }
-
-        public String getCategory()
-        {
-            return category;
-        }
-
-        public void setCategory(String category)
-        {
-            this.category = category;
-        }
-
-        public DateTime getDate()
-        {
-            return date;
-        }
-
-        public void setDate(DateTime date)
-        {
-            this.date = date;
+            this.Id = spending.Id;
+            this.Name = spending.Name;
+            this.Value = spending.Value;
+            this.Category = spending.Category;
+            this.Date = spending.Date;
         }
     }
 }

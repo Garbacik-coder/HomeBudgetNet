@@ -42,17 +42,22 @@ namespace mgrNET.Controllers
         [HttpGet("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
-            var movie = await spendingStore.GetById(id);
-            if (movie == null)
+            var spending = await spendingStore.GetById(id);
+            if (spending == null)
             {
                 return NotFound();
             }
 
-            return Ok(new Domain.Spending(movie));
+            var spending2 = new Domain.Spending(spending);
+            var json = System.Text.Json.JsonSerializer.Serialize(spending2);
+            Console.WriteLine(json);  // Log the serialized JSON
+
+            return Ok(spending2);
         }
+
 
         public record SpendingDto
         {
