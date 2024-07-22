@@ -27,18 +27,6 @@ namespace mgrNET.Controllers
             return Ok(storeSpendings);
         }
 
-        /*// GET api/movies/5
-        [HttpGet("{id}")]
-        //[Produces("application/json")]
-        //[ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<SpendingDto>> Get(int id)
-        {
-            var spending = await spendingStore.GetById(id);
-            var dto = new SpendingDto { Id = spending.getId() };
-            return Ok(dto);
-        }*/
-
         [HttpGet("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Domain.Spending), StatusCodes.Status200OK)]
@@ -56,12 +44,6 @@ namespace mgrNET.Controllers
             Console.WriteLine(json);  // Log the serialized JSON
 
             return Ok(spending2);
-        }
-
-
-        public record SpendingDto
-        {
-            public int Id { get; set; }
         }
         
         // POST api/movies
@@ -95,7 +77,7 @@ namespace mgrNET.Controllers
         [HttpPut("{id}")]
         [Consumes(typeof(UpdateSpending), "application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] UpdateSpending request)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateSpending request)
         {
             await spendingStore.Update(id, new UpdateSpendingParams(
                 request.name,
@@ -110,7 +92,7 @@ namespace mgrNET.Controllers
         // DELETE api/values/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             await spendingStore.Delete(id);
             return Ok();

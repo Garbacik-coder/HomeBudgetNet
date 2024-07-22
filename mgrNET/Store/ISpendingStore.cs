@@ -9,7 +9,7 @@ public interface ISpendingStore
     Task<IEnumerable<Spending>> GetAll();
     Task<Spending?> GetById(int id);
     Task Create(CreateSpendingParams createSpendingParams);
-    Task Update(Guid id, UpdateSpendingParams updateSpendingParams);
-    Task Delete(Guid id);
+    Task Update(int id, UpdateSpendingParams updateSpendingParams);
+    Task Delete(int id);
 }
 

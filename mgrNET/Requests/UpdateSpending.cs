@@ -2,12 +2,12 @@
 {
     public class UpdateSpending
     {
-        public string name;
+        public string? name { get; set; }
 
-        public decimal value;
+        public decimal value { get; set; }
 
-        public string category;
+        public string? category { get; set; }
 
-        public DateTime date;
+        public DateTime date { get; set; }
     }
 }

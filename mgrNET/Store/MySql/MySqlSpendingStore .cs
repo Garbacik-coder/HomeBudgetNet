@@ -55,7 +55,7 @@ public class MySqlSpendingStore : ISpendingStore
         }
     }
 
-    public async Task Delete(Guid id)
+    public async Task Delete(int id)
     {
         await using var connection = new MySqlConnection(connectionString);
         await connection.ExecuteAsync(
@@ -94,7 +94,7 @@ public class MySqlSpendingStore : ISpendingStore
             );
     }
 
-    public async Task Update(Guid id, UpdateSpendingParams updateSpendingParams)
+    public async Task Update(int id, UpdateSpendingParams updateSpendingParams)
     {
         await using var connection = new MySqlConnection(connectionString);
         {
